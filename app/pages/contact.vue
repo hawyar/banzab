@@ -1,150 +1,225 @@
 <template>
-  <div class="py-16 md:py-20">
-    <!-- Page Header -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 md:mb-20">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6 md:mb-8 tracking-tight">
+  <div class="pt-14 md:pt-16">
+    <!-- Centered Header -->
+    <div class="max-w-3xl mx-auto px-6 md:px-8 text-center mb-14 md:mb-20">
+      <p
+        class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium mb-5"
+      >
         Contact
+      </p>
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 tracking-tight leading-tight mb-5"
+      >
+        Get in touch
       </h1>
-      <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed">
-        Get in touch with our team to discuss partnership opportunities and inquiries.
+      <p
+        class="text-base text-gray-500 font-light leading-relaxed max-w-md mx-auto"
+      >
+        Reach out to discuss partnerships, opportunities, or anything else.
       </p>
     </div>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Contact Information -->
-      <div class="bg-white border border-gray-200 p-8 md:p-12 mb-12 md:mb-16">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <div>
-            <h3 class="text-sm font-medium text-gray-900 mb-3 uppercase tracking-wide">
-              Address
-            </h3>
-            <p class="text-gray-600 font-light text-sm md:text-base">
-              123 Business Plaza<br />
-              New York, NY 10001
-            </p>
+    <!-- Contact Info Row -->
+    <div class="max-w-3xl mx-auto px-6 md:px-8 mb-14 md:mb-20">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-200 rounded-2xl overflow-hidden"
+      >
+        <div class="bg-white p-8 text-center">
+          <div
+            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Email
           </div>
-          <div>
-            <h3 class="text-sm font-medium text-gray-900 mb-3 uppercase tracking-wide">
-              Phone
-            </h3>
-            <a href="tel:+12125551234" class="text-gray-600 hover:text-gray-900 transition-colors font-light text-sm md:text-base">
-              (212) 555-1234
-            </a>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-gray-900 mb-3 uppercase tracking-wide">
-              Email
-            </h3>
-            <a href="mailto:hello@banzab.com" class="text-gray-600 hover:text-gray-900 transition-colors font-light text-sm md:text-base">
-              hello@banzab.com
-            </a>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-gray-900 mb-3 uppercase tracking-wide">
-              Hours
-            </h3>
-            <p class="text-gray-600 font-light text-sm md:text-base">
-              Mon - Fri: 9AM - 6PM<br />
-              By appointment
-            </p>
-          </div>
+          <a
+            href="mailto:hello@banzab.com"
+            class="text-sm text-gray-900 font-light hover:text-gray-500 transition-colors"
+          >
+            hello@banzab.com
+          </a>
         </div>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="bg-white border border-gray-200 p-8 md:p-12">
-        <h2 class="text-2xl md:text-3xl font-light text-gray-900 mb-2 text-center">
-          Send us a message
-        </h2>
-        <p class="text-gray-600 font-light text-center mb-8 md:mb-12 text-sm md:text-base">
-          Fill out the form below and we'll get back to you within 24 hours
-        </p>
-
-        <form @submit.prevent="submitForm" class="space-y-6">
-          <!-- Type Selection -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Inquiry Type
-            </label>
-            <select v-model="form.type" required class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors bg-white">
-              <option value="">Select inquiry type...</option>
-              <option value="partnership">Partnership Opportunity</option>
-              <option value="investor">Investor Relations</option>
-              <option value="general">General Inquiry</option>
-              <option value="press">Press & Media</option>
-            </select>
+        <div class="bg-white p-8 text-center">
+          <div
+            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Location
           </div>
-
-          <!-- Name Fields -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-                First Name
-              </label>
-              <input v-model="form.firstName" type="text" required class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-                Last Name
-              </label>
-              <input v-model="form.lastName" type="text" required class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors" />
-            </div>
-          </div>
-
-          <!-- Email and Phone -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-                Email Address
-              </label>
-              <input v-model="form.email" type="email" required class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-                Phone <span class="text-gray-500 normal-case">(optional)</span>
-              </label>
-              <input v-model="form.phone" type="tel" class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors" />
-            </div>
-          </div>
-
-          <!-- Company -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Company <span class="text-gray-500 normal-case">(optional)</span>
-            </label>
-            <input v-model="form.company" type="text" class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors" />
-          </div>
-
-          <!-- Subject -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Subject
-            </label>
-            <input v-model="form.subject" type="text" required placeholder="Brief description of your inquiry" class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors placeholder-gray-400" />
-          </div>
-
-          <!-- Message -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Message
-            </label>
-            <textarea v-model="form.message" rows="6" required placeholder="Please provide details about your inquiry..." class="w-full px-4 py-3 border border-gray-300 text-gray-900 focus:ring-1 focus:ring-slate-900 focus:border-slate-900 transition-colors resize-y placeholder-gray-400"></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="text-center pt-4">
-            <button type="submit" :disabled="submitting" class="bg-slate-900 text-white px-8 md:px-12 py-3 md:py-4 font-medium hover:bg-slate-800 focus:ring-1 focus:ring-slate-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base">
-              {{ submitting ? "Sending..." : "Send Message" }}
-            </button>
-          </div>
-        </form>
-
-        <!-- Success Message -->
-        <div v-if="submitted" class="mt-8 max-w-2xl mx-auto p-6 bg-slate-50 border border-slate-200">
-          <p class="text-slate-800 font-light text-center text-sm md:text-base">
-            Thank you for your message. We will respond within 24 hours.
+          <p class="text-sm text-gray-900 font-light">
+            Erbil, Kurdistan Region
           </p>
         </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="max-w-3xl mx-auto px-6 md:px-8">
+      <div class="w-full h-px bg-gray-200 mb-14 md:mb-16"></div>
+    </div>
+
+    <!-- Form -->
+    <div class="max-w-2xl mx-auto px-6 md:px-8 mb-16 md:mb-20">
+      <p
+        class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium text-center mb-10"
+      >
+        Send a message
+      </p>
+
+      <form @submit.prevent="submitForm" class="space-y-6">
+        <!-- Inquiry Type -->
+        <div>
+          <label
+            class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Inquiry Type
+          </label>
+          <select
+            v-model="form.type"
+            required
+            class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white appearance-none"
+          >
+            <option value="">Select type...</option>
+            <option value="partnership">Partnership Opportunity</option>
+            <option value="investor">Investor Relations</option>
+            <option value="general">General Inquiry</option>
+            <option value="press">Press & Media</option>
+          </select>
+        </div>
+
+        <!-- Name -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label
+              class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+            >
+              First Name
+            </label>
+            <input
+              v-model="form.firstName"
+              type="text"
+              required
+              class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+            >
+              Last Name
+            </label>
+            <input
+              v-model="form.lastName"
+              type="text"
+              required
+              class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Email & Phone -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label
+              class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+            >
+              Email
+            </label>
+            <input
+              v-model="form.email"
+              type="email"
+              required
+              class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+            >
+              Phone <span class="normal-case text-gray-300">(optional)</span>
+            </label>
+            <input
+              v-model="form.phone"
+              type="tel"
+              class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <label
+            class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Company <span class="normal-case text-gray-300">(optional)</span>
+          </label>
+          <input
+            v-model="form.company"
+            type="text"
+            class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+          />
+        </div>
+
+        <!-- Subject -->
+        <div>
+          <label
+            class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Subject
+          </label>
+          <input
+            v-model="form.subject"
+            type="text"
+            required
+            placeholder="Brief description of your inquiry"
+            class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors placeholder-gray-300"
+          />
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label
+            class="block text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium mb-2"
+          >
+            Message
+          </label>
+          <textarea
+            v-model="form.message"
+            rows="5"
+            required
+            placeholder="Tell us more..."
+            class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 font-light focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors resize-y placeholder-gray-300"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center pt-2">
+          <button
+            type="submit"
+            :disabled="submitting"
+            class="inline-flex items-center gap-3 bg-gray-900 text-white px-10 py-3.5 text-sm font-medium hover:bg-gray-800 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ submitting ? "Sending..." : "Send Message" }}
+            <svg
+              v-if="!submitting"
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- Success -->
+      <div v-if="submitted" class="mt-8 p-6 bg-gray-50 rounded-2xl text-center">
+        <p class="text-sm text-gray-900 font-light">
+          Thank you for your message. We'll get back to you within 24 hours.
+        </p>
       </div>
     </div>
   </div>
@@ -156,7 +231,8 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Contact Banzab to discuss partnership opportunities, investor relations, and general inquiries. We respond within 24 hours.",
+      content:
+        "Contact Banzab to discuss partnership opportunities, investor relations, and general inquiries.",
     },
   ],
 });
