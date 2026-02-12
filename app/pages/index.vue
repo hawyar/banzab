@@ -38,13 +38,18 @@
               <div
                 class="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
               >
+                <!-- Left: Large text -->
                 <div class="max-w-3xl">
                   <h1
                     class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white tracking-tight leading-[1.1]"
                   >
-                    Building exceptional companies that define industries
+                    {{
+                      homepage?.heroHeading ||
+                      "Building exceptional companies that define industries"
+                    }}
                   </h1>
                 </div>
+                <!-- Right: Button -->
                 <div class="flex-shrink-0 pb-1">
                   <NuxtLink
                     to="/portfolio"
@@ -70,35 +75,54 @@
             </div>
           </div>
         </div>
-
-        <!-- Bottom tagline - hidden at top, fades in only at bottom -->
-        <div class="video-tagline" :style="{ opacity: taglineOpacity }">
-          <span
-            class="text-[10rem] md:text-[16rem] lg:text-[18rem] font-medium text-white uppercase tracking-tighter leading-none"
-          >
-            Banzab
-          </span>
-        </div>
       </section>
     </div>
 
     <!-- Section Components -->
-    <HomeQuoteStats />
-    <HomeMarquee />
-    <HomeWhyBanzab />
+    <HomeQuoteStats :data="homepage" />
+    <HomeMarquee :items="homepage?.marqueeItems" />
+    <HomeWhyBanzab :data="homepage" />
     <HomePortfolio />
-    <HomePartners />
-    <HomeCTA />
+    <HomePartners :data="homepage" />
+    <HomeCTA :data="homepage" />
 
-    <!-- Bottom spacer - limited reveal of video + tagline -->
-    <div class="bottom-reveal"></div>
+    <!-- Bottom spacer to limit video reveal at page end -->
+    <div class="bottom-cover"></div>
   </div>
 </template>
 
 <script setup>
+import { useSanityQuery } from "~/composables/useSanity";
+
 definePageMeta({
   layout: "default",
 });
+
+const { data: homepage } = await useSanityQuery(
+  "homepage",
+  `*[_type == "homepage"][0] {
+    heroHeading,
+    heroVideoUrl,
+    quoteEyebrow,
+    quoteText,
+    quoteAttribution,
+    stats,
+    marqueeItems,
+    whyBanzabEyebrow,
+    whyBanzabHeading,
+    whyBanzabSubtitle,
+    pillars,
+    portfolioEyebrow,
+    portfolioHeading,
+    portfolioSubtitle,
+    partnersEyebrow,
+    partnersHeading,
+    partnersList,
+    ctaHeading,
+    ctaDescription,
+    ctaButtonText
+  }`,
+);
 
 const videoRef = ref(null);
 const videoWidth = ref(90);
@@ -106,13 +130,14 @@ const videoHeight = ref(70);
 const videoBorderRadius = ref(16);
 const heroTextOffset = ref(0);
 const heroTextOpacity = ref(1);
-const taglineOpacity = ref(0);
 
 onMounted(() => {
   if (videoRef.value) {
     const source = videoRef.value.querySelector("source");
     if (source) {
-      source.src = "https://www.pexels.com/download/video/34682750/";
+      source.src =
+        homepage.value?.heroVideoUrl ||
+        "https://www.pexels.com/download/video/34682750/";
       videoRef.value.load();
 
       setTimeout(() => {
@@ -137,9 +162,7 @@ onUnmounted(() => {
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const windowHeight = window.innerHeight;
-  const docHeight = document.documentElement.scrollHeight;
 
-  // Hero video expand
   const expandEnd = windowHeight * 0.4;
 
   if (scrollPosition >= expandEnd) {
@@ -153,7 +176,6 @@ const handleScroll = () => {
     videoBorderRadius.value = 16 - progress * 16;
   }
 
-  // Hero text fade
   const textFadeEnd = windowHeight * 0.5;
 
   if (scrollPosition > textFadeEnd) {
@@ -163,19 +185,6 @@ const handleScroll = () => {
     const progress = scrollPosition / textFadeEnd;
     heroTextOffset.value = scrollPosition * 1.5;
     heroTextOpacity.value = Math.max(0, 1 - progress * 1.5);
-  }
-
-  // Tagline fade in — only visible in the last 300px of scroll
-  const distanceFromBottom = docHeight - (scrollPosition + windowHeight);
-  const taglineFadeZone = 300;
-
-  if (distanceFromBottom < taglineFadeZone) {
-    taglineOpacity.value = Math.min(
-      1,
-      (taglineFadeZone - distanceFromBottom) / taglineFadeZone,
-    );
-  } else {
-    taglineOpacity.value = 0;
   }
 };
 
@@ -228,37 +237,23 @@ useHead({
   pointer-events: auto;
 }
 
-/* Tagline at bottom of video */
-.video-tagline {
-  position: absolute;
-  bottom: -0.1em;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  pointer-events: none;
-  transition: opacity 0.15s ease-out;
-  line-height: 0.75;
-  white-space: nowrap;
-}
-
 video {
   object-position: center center;
 }
 
-/* Bottom reveal - small peek of video + tagline */
-.bottom-reveal {
+/* Bottom cover - limits how much video is revealed when scrolling past the last section */
+.bottom-cover {
   position: relative;
   z-index: 5;
-  height: 10vh;
+  height: 60vh;
+  background: white;
+  margin-top: -60vh;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .hero-content-wrapper {
     bottom: 10%;
-  }
-
-  .bottom-reveal {
-    height: 30vh;
   }
 }
 </style>

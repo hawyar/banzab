@@ -1,62 +1,80 @@
 <template>
   <section class="section-sheet sheet-4">
-    <div class="sheet-content !bg-gray-950">
+    <div class="sheet-content">
       <div class="py-24 md:py-32 lg:py-40">
         <div class="max-w-6xl mx-auto px-6 md:px-8">
           <!-- Header -->
           <div class="text-center mb-16 md:mb-24">
             <p
-              class="text-xs uppercase tracking-[0.15em] text-gray-500 font-medium mb-6"
+              class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium mb-6"
             >
               Portfolio
             </p>
             <h2
-              class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-5 leading-tight"
+              class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-gray-900 mb-5 leading-tight"
             >
-              Our Companies
+              Our companies
             </h2>
-            <p
-              class="text-base md:text-lg text-gray-400 font-light max-w-lg mx-auto"
-            >
-              Building brands that matter in Kurdistan's evolving market.
-            </p>
           </div>
 
           <!-- Company Cards -->
-          <div class="space-y-6">
-            <!-- Smoothie Season -->
-            <NuxtLink to="/portfolio" class="group block">
+          <div v-if="companies?.length" class="space-y-8">
+            <NuxtLink
+              v-for="company in companies"
+              :key="company._id"
+              :to="`/portfolio/${company.slug.current}`"
+              class="group block"
+            >
               <div
-                class="relative rounded-3xl overflow-hidden min-h-[420px] md:min-h-[480px] lg:min-h-[520px] bg-gradient-to-br from-emerald-900 via-teal-900 to-gray-900"
+                class="relative rounded-3xl overflow-hidden min-h-[400px] md:min-h-[480px]"
+                :class="
+                  company.cardImage
+                    ? ''
+                    : `bg-gradient-to-br ${company.cardGradient || 'from-gray-800 to-gray-900'}`
+                "
               >
-                <div class="absolute inset-0 opacity-20">
+                <img
+                  v-if="company.cardImage"
+                  :src="
+                    urlFor(company.cardImage).width(1200).auto('format').url()
+                  "
+                  :alt="company.name"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+
+                <div
+                  v-if="!company.cardImage"
+                  class="absolute inset-0 opacity-20"
+                >
                   <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-emerald-400/10 blur-3xl"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/5 blur-3xl"
                   ></div>
                 </div>
+
                 <div
                   class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
                 ></div>
+
                 <div
-                  class="relative h-full min-h-[420px] md:min-h-[480px] lg:min-h-[520px] flex flex-col justify-between p-8 md:p-10 lg:p-12"
+                  class="relative h-full min-h-[400px] md:min-h-[480px] flex flex-col justify-between p-8 md:p-10 lg:p-14"
                 >
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
                       <span
                         class="text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium"
-                        >Drinks</span
+                        >{{ company.category }}</span
                       >
                       <span class="w-1 h-1 rounded-full bg-white/30"></span>
                       <span
                         class="text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium"
-                        >Since 2019</span
+                        >Since {{ company.founded }}</span
                       >
                     </div>
                     <div
-                      class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white/40 group-hover:bg-white/10 transition-all"
+                      class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors"
                     >
                       <svg
-                        class="w-4 h-4 text-white/60 group-hover:text-white transition-colors group-hover:translate-x-0.5 transition-transform"
+                        class="w-5 h-5 text-white/70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -65,126 +83,49 @@
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="1.5"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          d="M7 17L17 7M17 7H7M17 7v10"
                         />
                       </svg>
                     </div>
                   </div>
+
                   <div>
                     <h3
-                      class="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight mb-4"
+                      class="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-tight mb-3"
                     >
-                      Smoothie Season
+                      {{ company.name }}
                     </h3>
                     <p
-                      class="text-sm md:text-base text-white/70 font-light leading-relaxed max-w-lg mb-6"
+                      class="text-sm md:text-base text-white/70 font-light leading-relaxed max-w-lg"
                     >
-                      Kurdistan's leading smoothie and juice brand with 6 active
-                      branches across Erbil. A new flagship dine-in location
-                      opening soon.
+                      {{ company.tagline }}
                     </p>
-                    <div class="flex items-center gap-8">
-                      <div>
-                        <div class="text-2xl font-light text-white">6</div>
-                        <div
-                          class="text-[11px] uppercase tracking-[0.12em] text-white/50 mt-0.5"
-                        >
-                          Branches
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-2xl font-light text-white">Erbil</div>
-                        <div
-                          class="text-[11px] uppercase tracking-[0.12em] text-white/50 mt-0.5"
-                        >
-                          Location
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
             </NuxtLink>
+          </div>
 
-            <!-- Pyarra -->
-            <NuxtLink to="/portfolio" class="group block">
-              <div
-                class="relative rounded-3xl overflow-hidden min-h-[420px] md:min-h-[480px] lg:min-h-[520px] bg-gradient-to-br from-amber-900 via-orange-900 to-gray-900"
+          <!-- View All -->
+          <div class="text-center mt-12">
+            <NuxtLink
+              to="/portfolio"
+              class="inline-flex items-center gap-3 text-sm font-medium text-gray-900 hover:text-gray-500 transition-colors"
+            >
+              <span>View All Companies</span>
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <div class="absolute inset-0 opacity-20">
-                  <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-400/10 blur-3xl"
-                  ></div>
-                </div>
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
-                ></div>
-                <div
-                  class="relative h-full min-h-[420px] md:min-h-[480px] lg:min-h-[520px] flex flex-col justify-between p-8 md:p-10 lg:p-12"
-                >
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                      <span
-                        class="text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium"
-                        >Snacks</span
-                      >
-                      <span class="w-1 h-1 rounded-full bg-white/30"></span>
-                      <span
-                        class="text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium"
-                        >2025</span
-                      >
-                    </div>
-                    <div
-                      class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white/40 group-hover:bg-white/10 transition-all"
-                    >
-                      <svg
-                        class="w-4 h-4 text-white/60 group-hover:text-white transition-colors group-hover:translate-x-0.5 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h3
-                      class="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight mb-4"
-                    >
-                      Pyarra
-                    </h3>
-                    <p
-                      class="text-sm md:text-base text-white/70 font-light leading-relaxed max-w-lg mb-6"
-                    >
-                      A line of healthy snacks bringing quality and innovation
-                      to Kurdistan's snacking market.
-                    </p>
-                    <div class="flex items-center gap-8">
-                      <div>
-                        <div class="text-2xl font-light text-white">New</div>
-                        <div
-                          class="text-[11px] uppercase tracking-[0.12em] text-white/50 mt-0.5"
-                        >
-                          Launch
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-2xl font-light text-white">Erbil</div>
-                        <div
-                          class="text-[11px] uppercase tracking-[0.12em] text-white/50 mt-0.5"
-                        >
-                          Location
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
             </NuxtLink>
           </div>
         </div>
@@ -192,3 +133,22 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import { useSanityQuery } from "~/composables/useSanity";
+import { urlFor } from "~/utils/sanity";
+
+const { data: companies } = await useSanityQuery(
+  "home-portfolio",
+  `*[_type == "portfolioCompany"] | order(sortOrder asc) {
+    _id,
+    name,
+    slug,
+    tagline,
+    category,
+    founded,
+    cardImage,
+    cardGradient
+  }`,
+);
+</script>
