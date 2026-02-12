@@ -27,10 +27,10 @@
             >
               <div
                 class="relative rounded-3xl overflow-hidden min-h-[400px] md:min-h-[480px]"
-                :class="
-                  company.cardImage
-                    ? ''
-                    : `bg-gradient-to-br ${company.cardGradient || 'from-gray-800 to-gray-900'}`
+                :style="
+                  !company.cardImage
+                    ? { background: cardGradient(company.cardColor) }
+                    : {}
                 "
               >
                 <img
@@ -148,7 +148,20 @@ const { data: companies } = await useSanityQuery(
     category,
     founded,
     cardImage,
-    cardGradient
+    cardColor
   }`,
 );
+
+function cardGradient(color) {
+  const hex = color?.hex || "#1a1a2e";
+  return `linear-gradient(135deg, ${hex} 0%, ${adjustBrightness(hex, -30)} 50%, #111827 100%)`;
+}
+
+function adjustBrightness(hex, amount) {
+  const num = parseInt(hex.replace("#", ""), 16);
+  const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+  const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00ff) + amount));
+  const b = Math.max(0, Math.min(255, (num & 0x0000ff) + amount));
+  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+}
 </script>

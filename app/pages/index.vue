@@ -75,6 +75,15 @@
             </div>
           </div>
         </div>
+
+        <!-- Bottom tagline - hidden at top, fades in only at bottom -->
+        <div class="video-tagline" :style="{ opacity: taglineOpacity }">
+          <span
+            class="text-4xl md:text-6xl lg:text-[15rem] font-medium text-white tracking-tighter uppercase"
+          >
+            Banzab
+          </span>
+        </div>
       </section>
     </div>
 
@@ -86,8 +95,8 @@
     <HomePartners :data="homepage" />
     <HomeCTA :data="homepage" />
 
-    <!-- Bottom spacer to limit video reveal at page end -->
-    <div class="bottom-cover"></div>
+    <!-- Bottom spacer - limited reveal of video + tagline -->
+    <div class="bottom-reveal"></div>
   </div>
 </template>
 
@@ -130,6 +139,7 @@ const videoHeight = ref(70);
 const videoBorderRadius = ref(16);
 const heroTextOffset = ref(0);
 const heroTextOpacity = ref(1);
+const taglineOpacity = ref(0);
 
 onMounted(() => {
   if (videoRef.value) {
@@ -162,6 +172,7 @@ onUnmounted(() => {
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
 
   const expandEnd = windowHeight * 0.4;
 
@@ -185,6 +196,19 @@ const handleScroll = () => {
     const progress = scrollPosition / textFadeEnd;
     heroTextOffset.value = scrollPosition * 1.5;
     heroTextOpacity.value = Math.max(0, 1 - progress * 1.5);
+  }
+
+  // Tagline fade in — only visible in the last 300px of scroll
+  const distanceFromBottom = docHeight - (scrollPosition + windowHeight);
+  const taglineFadeZone = 300;
+
+  if (distanceFromBottom < taglineFadeZone) {
+    taglineOpacity.value = Math.min(
+      1,
+      (taglineFadeZone - distanceFromBottom) / taglineFadeZone,
+    );
+  } else {
+    taglineOpacity.value = 0;
   }
 };
 
@@ -237,23 +261,35 @@ useHead({
   pointer-events: auto;
 }
 
+/* Tagline centered on video */
+.video-tagline {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out;
+}
+
 video {
   object-position: center center;
 }
 
-/* Bottom cover - limits how much video is revealed when scrolling past the last section */
-.bottom-cover {
+/* Bottom reveal - small peek of video + tagline */
+.bottom-reveal {
   position: relative;
   z-index: 5;
-  height: 60vh;
-  background: white;
-  margin-top: -60vh;
-  pointer-events: none;
+  height: 5vh;
 }
 
 @media (max-width: 768px) {
   .hero-content-wrapper {
     bottom: 10%;
+  }
+
+  .bottom-reveal {
+    height: 5vh;
   }
 }
 </style>

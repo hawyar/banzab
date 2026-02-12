@@ -9,16 +9,26 @@
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
         <div class="flex-shrink-0">
-          <NuxtLink
-            to="/"
-            class="text-xl font-medium tracking-tight text-gray-900"
-          >
-            Banzab
+          <NuxtLink to="/" class="block">
+            <img
+              v-if="logoUrl"
+              :src="logoUrl"
+              alt="Banzab"
+              class="h-7 w-auto"
+            />
+            <span
+              v-else
+              class="text-xl font-medium tracking-tight text-gray-900"
+            >
+              Banzab
+            </span>
           </NuxtLink>
         </div>
 
         <!-- Desktop Navigation - Centered -->
-        <div class="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+        <div
+          class="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2"
+        >
           <NuxtLink
             v-for="item in navigation"
             :key="item.name"
@@ -106,6 +116,9 @@
 </template>
 
 <script setup>
+import { useSanityQuery } from "~/composables/useSanity";
+import { urlFor } from "~/utils/sanity";
+
 const mobileMenuOpen = ref(false);
 const route = useRoute();
 
@@ -115,8 +128,24 @@ const navigation = [
   { name: "Our Story", href: "/about" },
 ];
 
-// Check if we're on the home page
 const isHomePage = computed(() => route.path === "/");
+
+const { data: settings } = await useSanityQuery(
+  "site-settings-header",
+  `*[_type == "siteSettings"][0] {
+    logoDark,
+    logoLight
+  }`,
+);
+
+const logoUrl = computed(() => {
+  if (!settings.value) return null;
+  const logo = isHomePage.value
+    ? settings.value.logoLight
+    : settings.value.logoDark;
+  if (!logo?.asset) return null;
+  return urlFor(logo).height(56).auto("format").url();
+});
 
 watch(
   () => route.path,
