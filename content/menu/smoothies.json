@@ -1,0 +1,85 @@
+{
+  "products": [
+    {
+      "id": "tropical-mango",
+      "name": "Tropical Mango Smoothie",
+      "category": "smoothies",
+      "description": "A tropical escape with fresh mango, pineapple, and coconut water",
+      "price": 8.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Fresh Mango",
+        "Pineapple",
+        "Coconut Water",
+        "Lime Juice",
+        "Agave"
+      ],
+      "allergens": ["None"],
+      "nutrition": {
+        "calories": 210,
+        "protein": 3,
+        "carbs": 52,
+        "fiber": 4,
+        "sugar": 45,
+        "fat": 1
+      },
+      "gradient": "from-yellow-400 to-orange-500",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "green-power",
+      "name": "Green Power Smoothie",
+      "category": "smoothies",
+      "description": "Nutrient-packed blend of spinach, kale, apple, and banana",
+      "price": 9.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Spinach",
+        "Kale",
+        "Green Apple",
+        "Banana",
+        "Ginger",
+        "Lemon",
+        "Coconut Water"
+      ],
+      "allergens": ["None"],
+      "nutrition": {
+        "calories": 185,
+        "protein": 5,
+        "carbs": 42,
+        "fiber": 8,
+        "sugar": 28,
+        "fat": 1
+      },
+      "gradient": "from-green-400 to-green-600",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "berry-antioxidant",
+      "name": "Berry Antioxidant Blast",
+      "category": "smoothies",
+      "description": "Mixed berries packed with antioxidants and Greek yogurt",
+      "price": 8.49,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Blueberries",
+        "Strawberries",
+        "Raspberries",
+        "Greek Yogurt",
+        "Honey",
+        "Almond Milk"
+      ],
+      "allergens": ["Dairy", "Tree Nuts"],
+      "nutrition": {
+        "calories": 220,
+        "protein": 15,
+        "carbs": 38,
+        "fiber": 6,
+        "sugar": 30,
+        "fat": 4
+      },
+      "gradient": "from-purple-400 to-pink-500",
+      "image": "images/placeholder.jpg"
+    }
+  ]
+}

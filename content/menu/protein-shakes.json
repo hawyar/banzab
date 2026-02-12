@@ -1,0 +1,57 @@
+{
+  "products": [
+    {
+      "id": "chocolate-protein",
+      "name": "Chocolate Peanut Butter Protein",
+      "category": "protein-shakes",
+      "description": "Rich chocolate and peanut butter with 25g of protein",
+      "price": 11.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Chocolate Whey Protein",
+        "Peanut Butter",
+        "Banana",
+        "Oats",
+        "Almond Milk",
+        "Cacao"
+      ],
+      "allergens": ["Dairy", "Peanuts", "Tree Nuts"],
+      "nutrition": {
+        "calories": 380,
+        "protein": 25,
+        "carbs": 35,
+        "fiber": 7,
+        "sugar": 18,
+        "fat": 16
+      },
+      "gradient": "from-amber-600 to-amber-800",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "vanilla-berry-protein",
+      "name": "Vanilla Berry Protein Shake",
+      "category": "protein-shakes",
+      "description": "Vanilla protein with fresh berries for post-workout recovery",
+      "price": 10.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Vanilla Whey Protein",
+        "Mixed Berries",
+        "Greek Yogurt",
+        "Spinach",
+        "Almond Milk"
+      ],
+      "allergens": ["Dairy", "Tree Nuts"],
+      "nutrition": {
+        "calories": 310,
+        "protein": 28,
+        "carbs": 25,
+        "fiber": 5,
+        "sugar": 20,
+        "fat": 8
+      },
+      "gradient": "from-pink-300 to-purple-400",
+      "image": "images/placeholder.jpg"
+    }
+  ]
+}

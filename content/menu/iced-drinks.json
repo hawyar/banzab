@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": "cucumber-mint-water",
+      "name": "Cucumber Mint Infused Water",
+      "category": "iced-drinks",
+      "description": "Refreshing cucumber and mint infused sparkling water",
+      "price": 3.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": ["Cucumber", "Fresh Mint", "Sparkling Water", "Lime"],
+      "allergens": ["None"],
+      "nutrition": {
+        "calories": 10,
+        "protein": 0,
+        "carbs": 3,
+        "fiber": 1,
+        "sugar": 2,
+        "fat": 0
+      },
+      "gradient": "from-green-300 to-green-400",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "hibiscus-iced-tea",
+      "name": "Hibiscus Iced Tea",
+      "category": "iced-drinks",
+      "description": "Tart and floral hibiscus tea served over ice with agave",
+      "price": 3.49,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": ["Hibiscus Tea", "Agave", "Lemon", "Ice"],
+      "allergens": ["None"],
+      "nutrition": {
+        "calories": 45,
+        "protein": 0,
+        "carbs": 12,
+        "fiber": 0,
+        "sugar": 11,
+        "fat": 0
+      },
+      "gradient": "from-red-400 to-pink-500",
+      "image": "images/placeholder.jpg"
+    }
+  ]
+}

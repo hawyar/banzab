@@ -1,0 +1,59 @@
+{
+  "products": [
+    {
+      "id": "golden-turmeric-latte",
+      "name": "Golden Turmeric Latte",
+      "category": "hot-drinks",
+      "description": "Warming turmeric and spice blend with steamed milk",
+      "price": 4.99,
+      "sizes": ["Small (12oz)", "Regular (16oz)"],
+      "ingredients": [
+        "Turmeric",
+        "Ginger",
+        "Cinnamon",
+        "Black Pepper",
+        "Coconut Milk",
+        "Honey"
+      ],
+      "allergens": ["Tree Nuts"],
+      "nutrition": {
+        "calories": 150,
+        "protein": 3,
+        "carbs": 22,
+        "fiber": 1,
+        "sugar": 18,
+        "fat": 6
+      },
+      "gradient": "from-yellow-500 to-orange-400",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "chai-tea-latte",
+      "name": "Spiced Chai Tea Latte",
+      "category": "hot-drinks",
+      "description": "Traditional chai spices with steamed milk and honey",
+      "price": 4.49,
+      "sizes": ["Small (12oz)", "Regular (16oz)"],
+      "ingredients": [
+        "Black Tea",
+        "Cardamom",
+        "Cinnamon",
+        "Ginger",
+        "Cloves",
+        "Milk",
+        "Honey"
+      ],
+      "allergens": ["Dairy"],
+      "nutrition": {
+        "calories": 180,
+        "protein": 6,
+        "carbs": 28,
+        "fiber": 0,
+        "sugar": 26,
+        "fat": 5
+      },
+      "gradient": "from-orange-400 to-red-500",
+      "image": "images/placeholder.jpg"
+    }
+  ]
+}

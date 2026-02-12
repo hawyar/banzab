@@ -1,0 +1,57 @@
+{
+  "products": [
+    {
+      "id": "caramel-frappe",
+      "name": "Caramel Coffee Frappe",
+      "category": "frappe",
+      "description": "Iced coffee blended with caramel and topped with whipped cream",
+      "price": 5.99,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Espresso",
+        "Caramel Syrup",
+        "Milk",
+        "Ice",
+        "Whipped Cream"
+      ],
+      "allergens": ["Dairy"],
+      "nutrition": {
+        "calories": 290,
+        "protein": 6,
+        "carbs": 45,
+        "fiber": 0,
+        "sugar": 42,
+        "fat": 11
+      },
+      "gradient": "from-amber-400 to-amber-600",
+      "image": "images/placeholder.jpg"
+    },
+    {
+      "id": "mocha-frappe",
+      "name": "Chocolate Mocha Frappe",
+      "category": "frappe",
+      "description": "Rich chocolate and coffee blend with a hint of vanilla",
+      "price": 6.49,
+      "sizes": ["Regular (16oz)", "Large (20oz)"],
+      "ingredients": [
+        "Espresso",
+        "Chocolate Syrup",
+        "Milk",
+        "Vanilla",
+        "Ice",
+        "Whipped Cream"
+      ],
+      "allergens": ["Dairy"],
+      "nutrition": {
+        "calories": 320,
+        "protein": 8,
+        "carbs": 48,
+        "fiber": 2,
+        "sugar": 44,
+        "fat": 12
+      },
+      "gradient": "from-amber-700 to-amber-900",
+      "image": "images/placeholder.jpg"
+    }
+  ]
+}

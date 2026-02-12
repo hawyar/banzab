@@ -1,0 +1,29 @@
+{
+  "categories": [
+    {
+      "id": "smoothies",
+      "name": "Smoothies",
+      "description": "Fresh fruit and vegetable blends"
+    },
+    {
+      "id": "protein-shakes",
+      "name": "Protein Shakes",
+      "description": "High-protein post-workout fuel"
+    },
+    {
+      "id": "frappe",
+      "name": "Frappe",
+      "description": "Iced coffee and blended drinks"
+    },
+    {
+      "id": "hot-drinks",
+      "name": "Hot Drinks",
+      "description": "Warming beverages and teas"
+    },
+    {
+      "id": "iced-drinks",
+      "name": "Iced Drinks",
+      "description": "Refreshing cold beverages"
+    }
+  ]
+}
