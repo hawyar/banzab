@@ -17,11 +17,10 @@
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="auto"
             class="w-full h-full object-cover"
-          >
-            <source type="video/mp4" />
-          </video>
+            src="https://ve5dvwwadbjuag7n.public.blob.vercel-storage.com/banzab-hero.mp4"
+          ></video>
 
           <!-- Dark overlay -->
           <div class="absolute inset-0 bg-black/50"></div>
@@ -104,7 +103,6 @@ const { data: homepage } = await useSanityQuery(
   "homepage",
   `*[_type == "homepage"][0] {
     heroHeading,
-    heroVideoUrl,
     quoteEyebrow,
     quoteText,
     quoteAttribution,
@@ -135,19 +133,8 @@ const heroTextOpacity = ref(1);
 
 onMounted(() => {
   if (videoRef.value) {
-    const source = videoRef.value.querySelector("source");
-    if (source) {
-      // from daroak blob
-      source.src =
-        "https://ve5dvwwadbjuag7n.public.blob.vercel-storage.com/banzab-hero.mp4";
-      videoRef.value.load();
-
-      setTimeout(() => {
-        videoRef.value.play().catch((e) => {
-          console.log("Video autoplay prevented:", e);
-        });
-      }, 500);
-    }
+    videoRef.value.muted = true;
+    videoRef.value.play().catch(() => {});
   }
 
   if (process.client) {
@@ -203,13 +190,11 @@ useHead({
 </script>
 
 <style scoped>
-/* Hero Wrapper */
 .hero-wrapper {
   height: 100vh;
   position: relative;
 }
 
-/* Hero Section - Fixed */
 .hero-section {
   position: fixed;
   top: 0;
@@ -244,7 +229,6 @@ video {
   object-position: center center;
 }
 
-/* Footer - normal flow, z-index between hero and sections */
 .homepage-footer {
   position: relative;
   z-index: 5;
