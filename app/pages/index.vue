@@ -137,6 +137,7 @@ onMounted(() => {
   if (videoRef.value) {
     const source = videoRef.value.querySelector("source");
     if (source) {
+      // from daroak blob
       source.src =
         "https://ve5dvwwadbjuag7n.public.blob.vercel-storage.com/banzab-hero.mp4";
       videoRef.value.load();
