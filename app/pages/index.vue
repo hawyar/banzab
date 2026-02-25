@@ -138,8 +138,7 @@ onMounted(() => {
     const source = videoRef.value.querySelector("source");
     if (source) {
       source.src =
-        homepage.value?.heroVideoUrl ||
-        "https://www.pexels.com/download/video/34682750/";
+        "https://ve5dvwwadbjuag7n.public.blob.vercel-storage.com/banzab-hero.mp4";
       videoRef.value.load();
 
       setTimeout(() => {
