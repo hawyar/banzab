@@ -1,6 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    gmailAppPassword: process.env.GMAIL_APP_PASSWORD || "",
+  },
   app: {
     head: {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
