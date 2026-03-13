@@ -167,6 +167,39 @@
       </div>
     </div>
 
+    <!-- Gallery -->
+    <div
+      v-if="company.galleryImages && company.galleryImages.length"
+      class="max-w-6xl mx-auto px-6 md:px-8 mb-20 md:mb-28"
+    >
+      <p
+        class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium mb-8"
+      >
+        Gallery
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        <div
+          v-for="(image, index) in company.galleryImages"
+          :key="image._key"
+          class="overflow-hidden rounded-2xl"
+          :class="index === 0 ? 'col-span-2 row-span-2' : ''"
+        >
+          <img
+            :src="
+              urlFor(image)
+                .width(index === 0 ? 1200 : 600)
+                .height(index === 0 ? 800 : 400)
+                .auto('format')
+                .url()
+            "
+            :alt="image.alt || company.name"
+            class="w-full h-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-500"
+            :class="index === 0 ? 'aspect-auto min-h-full' : ''"
+          />
+        </div>
+      </div>
+    </div>
+
     <!-- Highlights -->
     <div
       v-if="company.highlights && company.highlights.length"
@@ -355,6 +388,7 @@
 
 <script setup>
 import { useSanityQuery } from "~/composables/useSanity";
+import { urlFor } from "~/utils/sanity";
 
 const props = defineProps({
   brandSlug: {
@@ -383,6 +417,11 @@ const { data: company } = await useSanityQuery(
     highlights,
     productSectionTitle,
     productSectionSubtitle,
+    galleryImages[] {
+      _key,
+      alt,
+      asset
+    },
     productCategories[] {
       _key,
       name,

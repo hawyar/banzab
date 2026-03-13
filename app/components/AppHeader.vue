@@ -5,7 +5,7 @@
       isHomePage ? 'bg-transparent' : 'bg-white border-b border-gray-100',
     ]"
   >
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="w-[92%] max-w-[1280px] mx-auto">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
         <div class="flex-shrink-0">

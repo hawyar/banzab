@@ -4,7 +4,7 @@
       <div class="py-24 md:py-32 lg:py-40">
         <div class="max-w-6xl mx-auto px-6 md:px-8">
           <!-- Eyebrow -->
-          <div class="text-center mb-14 md:mb-20">
+          <div class="text-center mb-8 md:mb-10">
             <p
               class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium"
             >

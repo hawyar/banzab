@@ -35,9 +35,9 @@
           >
             <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 w-full">
               <div
-                class="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
               >
-                <!-- Left: Large text -->
+                <!-- Left: Big heading -->
                 <div class="max-w-2xl">
                   <h1
                     class="text-4xl md:text-2xl lg:text-3xl xl:text-5xl font-light text-white tracking-tight leading-[1.1]"
@@ -48,26 +48,25 @@
                     }}
                   </h1>
                 </div>
-                <!-- Right: Button -->
-                <div class="flex-shrink-0 pb-1">
+
+                <!-- Right: Brand logos -->
+                <div
+                  v-if="homepage?.brandShowcaseLogos?.length"
+                  class="flex items-center gap-8 flex-shrink-0"
+                >
                   <NuxtLink
-                    to="/brands"
-                    class="inline-flex items-center gap-3 text-white border border-white/30 px-6 py-3.5 rounded-full text-sm font-medium hover:bg-white/10 hover:border-white/50 transition-all"
+                    v-for="item in homepage.brandShowcaseLogos"
+                    :key="item._key"
+                    :to="item.link?.startsWith('/') ? item.link : `/${item.link}` || '/brands'"
+                    class="group block"
                   >
-                    <span>Explore Our Brands</span>
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
+                    <img
+                      :src="
+                        urlFor(item.logo).height(44).auto('format').url()
+                      "
+                      :alt="item.name"
+                      class="h-8 md:h-11 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    />
                   </NuxtLink>
                 </div>
               </div>
@@ -94,6 +93,7 @@
 
 <script setup>
 import { useSanityQuery } from "~/composables/useSanity";
+import { urlFor } from "~/utils/sanity";
 
 definePageMeta({
   layout: "default",
@@ -103,6 +103,13 @@ const { data: homepage } = await useSanityQuery(
   "homepage",
   `*[_type == "homepage"][0] {
     heroHeading,
+    brandShowcaseText,
+    brandShowcaseLogos[] {
+      _key,
+      name,
+      logo,
+      link
+    },
     quoteEyebrow,
     quoteText,
     quoteAttribution,
@@ -126,7 +133,7 @@ const { data: homepage } = await useSanityQuery(
 
 const videoRef = ref(null);
 const videoWidth = ref(92);
-const videoHeight = ref(70);
+const videoHeight = ref(80);
 const videoBorderRadius = ref(16);
 const heroTextOffset = ref(0);
 const heroTextOpacity = ref(1);
@@ -161,7 +168,7 @@ const handleScroll = () => {
   } else {
     const progress = scrollPosition / expandEnd;
     videoWidth.value = 90 + progress * 10;
-    videoHeight.value = 70 + progress * 30;
+    videoHeight.value = 80 + progress * 20;
     videoBorderRadius.value = 16 - progress * 16;
   }
 
@@ -206,7 +213,7 @@ useHead({
 
 .video-container {
   position: absolute;
-  top: 46%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;

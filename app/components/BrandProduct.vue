@@ -169,96 +169,66 @@
       </div>
     </div>
 
-    <!-- Nutrition -->
+    <!-- Key Nutrition Info (dynamic) -->
     <div
-      v-if="product.nutrition && hasNutrition"
+      v-if="nutritionDisplay.length"
+      class="max-w-6xl mx-auto px-6 md:px-8 mb-20 md:mb-28"
+    >
+      <div class="flex items-baseline gap-3 mb-8">
+        <p
+          class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium"
+        >
+          {{ product.nutritionSectionTitle || 'Key Nutrition Info' }}
+        </p>
+        <span
+          v-if="product.nutritionServingNote"
+          class="text-[11px] text-gray-300 font-light"
+        >
+          {{ product.nutritionServingNote }}
+        </span>
+      </div>
+      <div
+        class="grid gap-px bg-gray-200 rounded-2xl overflow-hidden"
+        :class="nutritionGridCols"
+      >
+        <div
+          v-for="item in nutritionDisplay"
+          :key="item.label"
+          class="bg-white p-6 text-center"
+        >
+          <div class="text-2xl font-light text-gray-900 mb-1">
+            {{ item.value }}<span class="text-base text-gray-400 ml-0.5">{{ item.unit }}</span>
+          </div>
+          <div
+            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
+          >
+            {{ item.label }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Gallery -->
+    <div
+      v-if="product.productGallery && product.productGallery.length"
       class="max-w-6xl mx-auto px-6 md:px-8 mb-20 md:mb-28"
     >
       <p
         class="text-xs uppercase tracking-[0.15em] text-gray-400 font-medium mb-8"
       >
-        Nutrition Facts
+        Gallery
       </p>
-      <div
-        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-gray-200 rounded-2xl overflow-hidden"
-      >
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         <div
-          v-if="product.nutrition.calories != null"
-          class="bg-white p-6 text-center"
+          v-for="(photo, idx) in product.productGallery"
+          :key="photo._key || idx"
+          class="relative aspect-[4/3] rounded-2xl overflow-hidden"
         >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.calories }}
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Calories
-          </div>
-        </div>
-        <div
-          v-if="product.nutrition.protein != null"
-          class="bg-white p-6 text-center"
-        >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.protein }}g
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Protein
-          </div>
-        </div>
-        <div
-          v-if="product.nutrition.carbs != null"
-          class="bg-white p-6 text-center"
-        >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.carbs }}g
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Carbs
-          </div>
-        </div>
-        <div
-          v-if="product.nutrition.fat != null"
-          class="bg-white p-6 text-center"
-        >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.fat }}g
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Fat
-          </div>
-        </div>
-        <div
-          v-if="product.nutrition.fiber != null"
-          class="bg-white p-6 text-center"
-        >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.fiber }}g
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Fiber
-          </div>
-        </div>
-        <div
-          v-if="product.nutrition.sugar != null"
-          class="bg-white p-6 text-center"
-        >
-          <div class="text-2xl font-light text-gray-900 mb-1">
-            {{ product.nutrition.sugar }}g
-          </div>
-          <div
-            class="text-[11px] uppercase tracking-[0.12em] text-gray-400 font-medium"
-          >
-            Sugar
-          </div>
+          <img
+            :src="urlFor(photo).width(600).auto('format').url()"
+            :alt="photo.alt || `${product.name} photo ${idx + 1}`"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
         </div>
       </div>
     </div>
@@ -485,8 +455,11 @@ const { data: brand } = await useSanityQuery(
         price,
         healthBenefits,
         ingredients,
-        nutrition,
+        nutritionSectionTitle,
+        nutritionServingNote,
+        nutritionItems,
         servingInstructions,
+        productGallery,
         "relatedArticles": relatedArticles[]-> {
           _id,
           title,
@@ -530,17 +503,21 @@ const otherProducts = computed(() => {
   );
 });
 
-const hasNutrition = computed(() => {
-  if (!product.value?.nutrition) return false;
-  const n = product.value.nutrition;
-  return (
-    n.calories != null ||
-    n.protein != null ||
-    n.carbs != null ||
-    n.fat != null ||
-    n.fiber != null ||
-    n.sugar != null
-  );
+const nutritionDisplay = computed(() => {
+  if (!product.value?.nutritionItems?.length) return [];
+  return product.value.nutritionItems.map((item) => ({
+    label: item.label,
+    value: item.value,
+    unit: item.unit,
+  }));
+});
+
+const nutritionGridCols = computed(() => {
+  const count = nutritionDisplay.value.length;
+  if (count <= 3) return 'grid-cols-2 md:grid-cols-3';
+  if (count <= 4) return 'grid-cols-2 md:grid-cols-4';
+  if (count <= 5) return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5';
+  return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6';
 });
 
 function productGradient(color) {
