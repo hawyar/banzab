@@ -320,7 +320,19 @@ async function submitForm() {
   submitting.value = true;
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await $fetch("/api/contact", {
+      method: "POST",
+      body: {
+        type: form.type,
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        phone: form.phone,
+        company: form.company,
+        subject: form.subject,
+        message: form.message,
+      },
+    });
     submitted.value = true;
 
     setTimeout(() => {

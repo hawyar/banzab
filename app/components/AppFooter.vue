@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-slate-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12">
         <div class="col-span-1 md:col-span-2">
           <!-- Logo -->
           <div class="mb-6">
@@ -25,38 +25,23 @@
           </p>
 
           <!-- Brand Logos -->
-          <div v-if="brands?.length" class="flex items-center gap-5 mb-8">
+          <div v-if="brands?.length" class="flex items-center gap-6">
             <NuxtLink
               v-for="brand in brands"
               :key="brand._id"
-              :to="`/brands/${brand.slug.current}`"
-              class="opacity-50 hover:opacity-100 transition-opacity"
+              :to="`/brands/${brand.slug?.current}`"
+              class="opacity-60 hover:opacity-100 transition-opacity"
             >
               <img
                 v-if="brand.logo"
-                :src="urlFor(brand.logo).height(28).auto('format').url()"
+                :src="urlFor(brand.logo).height(48).auto('format').url()"
                 :alt="brand.name"
-                class="h-5 w-auto"
+                class="h-8 w-auto"
               />
-              <span v-else class="text-xs text-gray-400 font-light">{{
+              <span v-else class="text-sm text-gray-400 font-light">{{
                 brand.name
               }}</span>
             </NuxtLink>
-          </div>
-
-          <!-- Social Links -->
-          <div class="flex space-x-6">
-            <a
-              v-for="social in activeSocialLinks"
-              :key="social.name"
-              :href="social.href"
-              target="_blank"
-              rel="noopener"
-              class="text-gray-400 hover:text-white transition-colors duration-200 text-sm font-light tracking-wide uppercase"
-              :aria-label="social.name"
-            >
-              {{ social.name }}
-            </a>
           </div>
         </div>
 
@@ -92,13 +77,34 @@
             </div>
             <div>
               <a
-                href="mailto:hello@banzab.com"
+                href="mailto:contact@banzab.com"
                 class="text-gray-400 hover:text-white transition-colors duration-200 text-sm font-light"
               >
-                hello@banzab.com
+                contact@banzab.com
               </a>
             </div>
           </div>
+        </div>
+
+        <div>
+          <h4
+            class="text-sm font-medium text-white mb-6 uppercase tracking-wider"
+          >
+            Social Media
+          </h4>
+          <ul class="space-y-3">
+            <li v-for="social in activeSocialLinks" :key="social.name">
+              <a
+                :href="social.href"
+                target="_blank"
+                rel="noopener"
+                class="text-gray-400 hover:text-white transition-colors duration-200 text-sm font-light"
+                :aria-label="social.name"
+              >
+                {{ social.name }}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 

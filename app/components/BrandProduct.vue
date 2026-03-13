@@ -161,10 +161,6 @@
             </div>
           </div>
 
-          <!-- Price -->
-          <div v-if="product.price" class="text-2xl font-light text-gray-900">
-            ${{ product.price.toFixed(2) }}
-          </div>
         </div>
       </div>
     </div>
@@ -294,7 +290,7 @@
         <NuxtLink
           v-for="p in otherProducts"
           :key="p._key"
-          :to="`/brands/${brandSlug}/${categorySlug}/${p.slug.current}`"
+          :to="`/brands/${brandSlug}/${categorySlug}/${p.slug?.current}`"
           class="group block"
         >
           <div class="rounded-2xl overflow-hidden">

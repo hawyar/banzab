@@ -57,7 +57,7 @@
                   <NuxtLink
                     v-for="item in homepage.brandShowcaseLogos"
                     :key="item._key"
-                    :to="item.link?.startsWith('/') ? item.link : `/${item.link}` || '/brands'"
+                    :to="(item.link?.startsWith('/') ? item.link : `/${item.link}`) || '/brands'"
                     class="group block"
                   >
                     <img
