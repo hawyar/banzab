@@ -72,13 +72,13 @@
             <!-- Product Image / Gradient -->
             <div
               class="relative aspect-[4/3] overflow-hidden rounded-2xl"
-              :style="{ background: productGradient(product.color) }"
+              :style="!product.image ? { background: productGradient(product.color) } : {}"
             >
               <img
                 v-if="product.image"
                 :src="urlFor(product.image).width(600).auto('format').url()"
                 :alt="product.name"
-                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
               />
               <div
                 v-else
