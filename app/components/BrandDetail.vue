@@ -24,18 +24,6 @@
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-end">
         <div class="md:col-span-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span
-              class="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-medium"
-              >{{ company.category }}</span
-            >
-            <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-            <span
-              class="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-medium"
-              >{{ company.founded }}</span
-            >
-          </div>
-
           <h1
             class="text-4xl md:text-5xl lg:text-7xl font-light text-gray-900 tracking-tight leading-[1.05] mb-6"
           >
@@ -138,6 +126,8 @@
         </div>
       </div>
     </div>
+
+    <PyarraStockists v-if="brandSlug === 'pyarra'" />
 
     <!-- About -->
     <div
