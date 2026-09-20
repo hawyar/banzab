@@ -15,7 +15,6 @@ interface StockistDetails {
   id: string;
   name: string;
   outletType: 'Bakery' | 'Gym' | 'Market' | 'Juice shop';
-  cardColor: `#${string}`;
 }
 
 export interface ChainStockist extends StockistDetails {
@@ -34,54 +33,54 @@ export type PyarraStockist = ChainStockist | SingleStockist;
 // Original sharing URLs are preserved for visitors' preferred map applications.
 export const pyarraStockists: PyarraStockist[] = [
   {
-    id: 'village-windmill', name: 'Village Windmill', outletType: 'Bakery', cardColor: '#f6eedc', kind: 'single',
+    id: 'village-windmill', name: 'Village Windmill', outletType: 'Bakery', kind: 'single',
     branches: [{ id: 'village-windmill', name: 'Village Windmill', mapUrl: 'https://maps.app.goo.gl/phto2vgLKEwqWJXG6?g_st=aw' }],
   },
   {
-    id: 'fox', name: 'Fox Gym', outletType: 'Gym', cardColor: '#ede6f5', kind: 'single',
+    id: 'fox', name: 'Fox Gym', outletType: 'Gym', kind: 'single',
     branches: [{ id: 'fox', name: 'Fox Gym', mapUrl: 'https://maps.app.goo.gl/BkCcvJPMMtirRB9D9?g_st=ic' }],
   },
   {
-    id: 'infinity', name: 'Infinity Gym', outletType: 'Gym', cardColor: '#e1eff8', kind: 'single',
+    id: 'infinity', name: 'Infinity Gym', outletType: 'Gym', kind: 'single',
     branches: [{ id: 'infinity', name: 'Infinity Gym', mapUrl: 'https://maps.apple/p/0.rPeJvLUEtpth' }],
   },
   {
-    id: 'zaynab-iron-house', name: 'Zaynab / Iron House Fitness', outletType: 'Gym', cardColor: '#f6e3e5', kind: 'single',
+    id: 'zaynab-iron-house', name: 'Zaynab / Iron House Fitness', outletType: 'Gym', kind: 'single',
     branches: [{ id: 'zaynab-iron-house', name: 'Zaynab / Iron House Fitness', mapUrl: 'https://maps.google.com/?q=36.217216,43.986904' }],
   },
   {
-    id: 'ashti', name: 'Ashti Market', outletType: 'Market', cardColor: '#f8e8db', kind: 'single',
+    id: 'ashti', name: 'Ashti Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'ashti', name: 'Ashti Market', mapUrl: 'https://maps.apple/p/guXo~bhvc8Encb' }],
   },
   {
-    id: 'berlin', name: 'Berlin Market', outletType: 'Market', cardColor: '#eae1d2', kind: 'chain',
+    id: 'berlin', name: 'Berlin Market', outletType: 'Market', kind: 'chain',
     branches: [
       { id: 'berlin-hawlere-nwe', name: 'Hawlere Nwe', mapUrl: 'https://maps.app.goo.gl/aYQ9cvfGBPpR9YAT7?g_st=ic', coordinates: [36.2111385, 44.0748967], coordinateSource: 'https://www.google.com/maps?q=36.2111385,44.0748967' },
       { id: 'berlin-naz-naz', name: 'Naz Naz', mapUrl: 'https://maps.app.goo.gl/QEhsyyzLt22q5bMa8?g_st=ic', coordinates: [36.2129682, 43.9898090], coordinateSource: 'https://www.google.com/maps?q=36.2129682,43.9898090' },
     ],
   },
   {
-    id: 'daily-basket', name: 'Daily Basket', outletType: 'Market', cardColor: '#e4e6f7', kind: 'single',
+    id: 'daily-basket', name: 'Daily Basket', outletType: 'Market', kind: 'single',
     branches: [{ id: 'daily-basket', name: 'Daily Basket', mapUrl: 'https://maps.google.com/?q=36.202431,43.985039' }],
   },
   {
-    id: 'darin-2', name: 'Darin 2 Market', outletType: 'Market', cardColor: '#f5f0cf', kind: 'single',
+    id: 'darin-2', name: 'Darin 2 Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'darin-2', name: 'Darin 2 Market', mapUrl: 'https://maps.app.goo.gl/tJ1YjGdYGX93Vqqr6?g_st=ic' }],
   },
   {
-    id: 'karwan-saray', name: 'Karwan Saray Market', outletType: 'Market', cardColor: '#dff1ed', kind: 'single',
+    id: 'karwan-saray', name: 'Karwan Saray Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'karwan-saray', name: 'Karwan Saray Market', mapUrl: 'https://maps.app.goo.gl/dDzRU5rmKWd2Q36e6?g_st=ic' }],
   },
   {
-    id: 'max', name: 'Max Market', outletType: 'Market', cardColor: '#e9e8e4', kind: 'single',
+    id: 'max', name: 'Max Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'max', name: 'Max Market', mapUrl: 'https://maps.app.goo.gl/kZKCFRaWMnwXZ2kH8?g_st=ic' }],
   },
   {
-    id: 'mevan', name: 'Mevan Market', outletType: 'Market', cardColor: '#efdfeb', kind: 'single',
+    id: 'mevan', name: 'Mevan Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'mevan', name: 'Mevan Market', mapUrl: 'https://maps.app.goo.gl/UkJ9y7ywb7SFFELt9?g_st=ic' }],
   },
   {
-    id: 'view', name: 'View Market', outletType: 'Market', cardColor: '#e0e8ec', kind: 'chain',
+    id: 'view', name: 'View Market', outletType: 'Market', kind: 'chain',
     branches: [
       { id: 'view-aram', name: 'Aram Village', mapUrl: 'https://maps.apple/p/mJww.4LSmRFp06', coordinates: [36.245094, 44.041142], coordinateSource: 'https://maps.apple.com/place?coordinate=36.245094,44.041142' },
       { id: 'view-mass', name: 'Mass Village', mapUrl: 'https://maps.apple/p/Z_N0DSXBYJ5ICM', coordinates: [36.237003, 44.063663], coordinateSource: 'https://maps.apple.com/place?coordinate=36.237003,44.063663' },
@@ -92,11 +91,11 @@ export const pyarraStockists: PyarraStockist[] = [
     ],
   },
   {
-    id: 'zanay-baqal', name: 'Zanay Baqal Market', outletType: 'Market', cardColor: '#f4e3c9', kind: 'single',
+    id: 'zanay-baqal', name: 'Zanay Baqal Market', outletType: 'Market', kind: 'single',
     branches: [{ id: 'zanay-baqal', name: 'Zanay Baqal Market', mapUrl: 'https://maps.app.goo.gl/j96NnDKdz82ZkxoM6?g_st=ic' }],
   },
   {
-    id: 'smoothie-season', name: 'Smoothie Season', outletType: 'Juice shop', cardColor: '#dcefd8', kind: 'chain',
+    id: 'smoothie-season', name: 'Smoothie Season', outletType: 'Juice shop', kind: 'chain',
     branches: [
       { id: 'smoothie-32-park', name: '32 Park', mapUrl: 'https://share.google/hNpGSTVyHRbYWWsi8', coordinates: [36.1955116, 43.9631331], coordinateSource: 'https://www.google.com/maps/place/Smoothie+Season+-+32+Park/data=!4m6!3m5!1s0x400723033e95c3ff:0x801e31604a4a1386!8m2!3d36.1955116!4d43.9631331!16s%2Fg%2F11h3wxzktq' },
       { id: 'smoothie-60-road', name: '60 Road', mapUrl: 'https://share.google/vvYNHiBYzDET8YqGx', coordinates: [36.2024685, 44.0161614], coordinateSource: 'https://www.google.com/maps/place/Smoothie+Season+-+60m+Street/data=!4m6!3m5!1s0x400723007d506c97:0xb6ae2bda76723627!8m2!3d36.2024685!4d44.0161614!16s%2Fg%2F11yffsyjbl' },

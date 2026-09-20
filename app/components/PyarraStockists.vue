@@ -18,7 +18,6 @@
         :aria-haspopup="retailer.kind === 'chain' ? 'dialog' : undefined"
         :aria-label="retailer.kind === 'chain' ? `${retailer.name}, view ${retailer.branches.length} branches` : `${retailer.name}, open in Maps (new tab)`"
         class="stockist-card group"
-        :style="{ backgroundColor: retailer.cardColor }"
         @click="retailer.kind === 'chain' && openRetailer(retailer, $event)"
       >
         <span class="stockist-name">{{ retailer.name }}</span>
@@ -142,12 +141,13 @@ onBeforeUnmount(restoreScroll);
 .stockists .brand-eyebrow { color: var(--brand-primary, #92400e); font-size: .6875rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
 .stockists .brand-heading { color: var(--brand-text, #2f2117); }
 .stockists .brand-body { color: var(--brand-muted, #756355); }
-.stockist-card { display: flex; flex-direction: column; text-align: left; padding: 1.5rem; border: 1px solid rgba(70, 60, 45, .08); border-radius: 16px; color: var(--stockist-ink); transition: border-color 180ms ease, transform 180ms ease; }
-.stockist-card:hover { border-color: rgba(70, 60, 45, .28); transform: translateY(-2px); }
+.stockist-card { display: flex; flex-direction: column; text-align: left; padding: 1.5rem; background: transparent; border: 1px solid #e5e5e5; border-radius: 12px; color: #262626; transition: border-color 180ms ease; }
+.stockist-card:hover { border-color: #a3a3a3; }
 .stockist-type { display: block; color: var(--stockist-muted); font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
 .stockist-name { display: block; margin: 0 0 1.5rem; font-size: 1.25rem; font-weight: 300; letter-spacing: -.025em; line-height: 1.35; }
-.stockist-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: auto; color: var(--stockist-muted); font-size: .75rem; }
-.stockists :is(a, button):focus-visible { outline: 2px solid #78532d; outline-offset: 4px; }
+.stockist-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: auto; color: #666; font-size: .75rem; }
+.stockist-card:focus-visible { outline: 2px solid #525252; outline-offset: 4px; }
+.stockists .stockist-dialog :is(a, button):focus-visible { outline: 2px solid #78532d; outline-offset: 4px; }
 .stockist-dialog { color: var(--stockist-ink); background: #fffdfa; border: 1px solid #e7e1d7; border-radius: 24px; padding: 0; width: min(960px, calc(100vw - 4rem)); max-width: none; max-height: calc(100dvh - 4rem); margin: auto; overflow: hidden; }
 .stockist-dialog::backdrop { background: rgba(29, 27, 23, .45); }
 .stockist-dialog[open] { display: flex; flex-direction: column; }
@@ -174,5 +174,5 @@ onBeforeUnmount(restoreScroll);
   .dialog-map { height: 300px; height: clamp(240px, 40dvh, 360px); }
   .dialog-branches { max-height: none; overflow: visible; padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); }
 }
-@media (prefers-reduced-motion: reduce) { .stockist-card { transition: none; } .stockist-card:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .stockist-card { transition: none; } }
 </style>
