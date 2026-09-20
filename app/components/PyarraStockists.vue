@@ -18,7 +18,7 @@
         :aria-haspopup="retailer.kind === 'chain' ? 'dialog' : undefined"
         :aria-label="retailer.kind === 'chain' ? `${retailer.name}, view ${retailer.branches.length} branches` : `${retailer.name}, open in Maps (new tab)`"
         class="stockist-card group"
-        :style="{ backgroundColor: retailer.cardColor }"
+        :style="{ '--stockist-card-color': retailer.cardColor }"
         @click="retailer.kind === 'chain' && openRetailer(retailer, $event)"
       >
         <span class="stockist-name">{{ retailer.name }}</span>
@@ -142,8 +142,8 @@ onBeforeUnmount(restoreScroll);
 .stockists .brand-eyebrow { color: var(--brand-primary, #92400e); font-size: .6875rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
 .stockists .brand-heading { color: var(--brand-text, #2f2117); }
 .stockists .brand-body { color: var(--brand-muted, #756355); }
-.stockist-card { display: flex; flex-direction: column; text-align: left; padding: 1.5rem; border: 1px solid rgba(70, 60, 45, .08); border-radius: 16px; color: var(--stockist-ink); transition: border-color 180ms ease, transform 180ms ease; }
-.stockist-card:hover { border-color: rgba(70, 60, 45, .28); transform: translateY(-2px); }
+.stockist-card { display: flex; flex-direction: column; text-align: left; padding: 1.5rem; background: var(--stockist-card-color); border: 1px solid color-mix(in srgb, var(--stockist-card-color) 75%, #000); border-radius: 16px; color: var(--stockist-ink); transition: border-color 180ms ease, transform 180ms ease; }
+.stockist-card:hover { border-color: color-mix(in srgb, var(--stockist-card-color) 55%, #000); transform: translateY(-2px); }
 .stockist-type { display: block; color: var(--stockist-muted); font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
 .stockist-name { display: block; margin: 0 0 1.5rem; font-size: 1.25rem; font-weight: 300; letter-spacing: -.025em; line-height: 1.35; }
 .stockist-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: auto; color: var(--stockist-muted); font-size: .75rem; }
