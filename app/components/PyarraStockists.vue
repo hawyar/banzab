@@ -6,30 +6,29 @@
       <p class="brand-body text-base font-light">Available at these locations across Erbil.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-      <component
-        :is="retailer.kind === 'chain' ? 'button' : 'a'"
-        v-for="retailer in pyarraStockists"
-        :key="retailer.id"
-        :href="retailer.kind === 'single' ? retailer.branches[0].mapUrl : undefined"
-        :target="retailer.kind === 'single' ? '_blank' : undefined"
-        :rel="retailer.kind === 'single' ? 'noopener noreferrer' : undefined"
-        :type="retailer.kind === 'chain' ? 'button' : undefined"
-        :aria-haspopup="retailer.kind === 'chain' ? 'dialog' : undefined"
-        :aria-label="retailer.kind === 'chain' ? `${retailer.name}, view ${retailer.branches.length} branches` : `${retailer.name}, open in Maps (new tab)`"
-        class="stockist-card group"
-        :style="{ '--stockist-card-color': retailer.cardColor }"
-        @click="retailer.kind === 'chain' && openRetailer(retailer, $event)"
-      >
-        <span class="stockist-name">{{ retailer.name }}</span>
-        <span class="stockist-card-footer">
-          <span>{{ retailer.kind === 'chain' ? `${retailer.branches.length} branches` : 'Open in Maps' }}</span>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path v-if="retailer.kind === 'single'" d="M7 17 17 7M7 7h10v10" />
-            <path v-else d="M4 12h16m-6-6 6 6-6 6" />
-          </svg>
-        </span>
-      </component>
+    <div class="stockist-directory">
+      <ul v-for="(column, columnIndex) in stockistColumns" :key="columnIndex" class="stockist-column">
+        <li v-for="retailer in column" :key="retailer.id" class="stockist-group">
+          <h3 class="stockist-name">{{ retailer.name }}</h3>
+          <component
+            :is="retailer.kind === 'chain' ? 'button' : 'a'"
+            :href="retailer.kind === 'single' ? retailer.branches[0].mapUrl : undefined"
+            :target="retailer.kind === 'single' ? '_blank' : undefined"
+            :rel="retailer.kind === 'single' ? 'noopener noreferrer' : undefined"
+            :type="retailer.kind === 'chain' ? 'button' : undefined"
+            :aria-haspopup="retailer.kind === 'chain' ? 'dialog' : undefined"
+            :aria-label="retailer.kind === 'chain' ? `${retailer.name}, view ${retailer.branches.length} branches` : `${retailer.name}, open in Maps (new tab)`"
+            class="stockist-location"
+            @click="retailer.kind === 'chain' && openRetailer(retailer, $event)"
+          >
+            <span>{{ retailer.kind === 'chain' ? `${retailer.branches.length} branches` : 'Open in Maps' }}</span>
+            <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path v-if="retailer.kind === 'single'" d="M7 17 17 7M7 7h10v10" />
+              <path v-else d="M4 12h16m-6-6 6 6-6 6" />
+            </svg>
+          </component>
+        </li>
+      </ul>
     </div>
 
     <dialog ref="dialog" class="stockist-dialog" aria-labelledby="stockist-dialog-title" aria-describedby="stockist-dialog-description" @close="onClosed" @cancel.prevent="closeDialog" @click="onBackdropClick" @keydown="containFocus">
@@ -72,6 +71,9 @@
 <script setup lang="ts">
 import type Lenis from 'lenis';
 import { pyarraStockists, type ChainStockist } from '~/data/pyarraStockists';
+
+const columnBreak = Math.ceil(pyarraStockists.length / 2);
+const stockistColumns = [pyarraStockists.slice(0, columnBreak), pyarraStockists.slice(columnBreak)];
 
 const lenis = useNuxtApp().$lenis as Lenis | undefined;
 const dialog = ref<HTMLDialogElement>();
@@ -142,11 +144,22 @@ onBeforeUnmount(restoreScroll);
 .stockists .brand-eyebrow { color: var(--brand-primary, #92400e); font-size: .6875rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
 .stockists .brand-heading { color: var(--brand-text, #2f2117); }
 .stockists .brand-body { color: var(--brand-muted, #756355); }
-.stockist-card { display: flex; flex-direction: column; text-align: left; padding: 1.5rem; background: var(--stockist-card-color); border: 1px solid color-mix(in srgb, var(--stockist-card-color) 75%, #000); border-radius: 16px; color: var(--stockist-ink); transition: border-color 180ms ease, transform 180ms ease; }
-.stockist-card:hover { border-color: color-mix(in srgb, var(--stockist-card-color) 55%, #000); transform: translateY(-2px); }
+.stockist-directory { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 4rem; }
+.stockist-column { list-style: none; margin: 0; padding: 0; min-width: 0; }
+.stockist-group { min-width: 0; padding: 1.25rem 0; border-bottom: 1px solid #d9d5cf; color: var(--stockist-ink); }
+.stockist-column:first-child .stockist-group:first-child { padding-top: 0; }
+.stockist-column:last-child .stockist-group:last-child { border-bottom: 0; }
+.stockist-name { margin: 0; font-size: 1.25rem; font-weight: 400; letter-spacing: -.025em; line-height: 1.4; }
+.stockist-location { display: inline-flex; align-items: center; gap: .875rem; min-height: 44px; padding: .5rem 0; color: var(--stockist-muted); font-size: .875rem; line-height: 1.5; text-align: left; }
+.stockist-location svg { flex-shrink: 0; opacity: .65; }
+.stockist-location:hover { color: var(--stockist-ink); text-decoration: underline; text-underline-offset: 4px; }
+.stockist-location:hover svg { opacity: 1; }
 .stockist-type { display: block; color: var(--stockist-muted); font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
-.stockist-name { display: block; margin: 0 0 1.5rem; font-size: 1.25rem; font-weight: 300; letter-spacing: -.025em; line-height: 1.35; }
-.stockist-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: auto; color: var(--stockist-muted); font-size: .75rem; }
+@media (min-width: 768px) {
+  .stockist-directory { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stockist-column .stockist-group:first-child { padding-top: 0; }
+  .stockist-column .stockist-group:last-child { border-bottom: 0; }
+}
 .stockists :is(a, button):focus-visible { outline: 2px solid #78532d; outline-offset: 4px; }
 .stockist-dialog { color: var(--stockist-ink); background: #fffdfa; border: 1px solid #e7e1d7; border-radius: 24px; padding: 0; width: min(960px, calc(100vw - 4rem)); max-width: none; max-height: calc(100dvh - 4rem); margin: auto; overflow: hidden; }
 .stockist-dialog::backdrop { background: rgba(29, 27, 23, .45); }
@@ -174,5 +187,4 @@ onBeforeUnmount(restoreScroll);
   .dialog-map { height: 300px; height: clamp(240px, 40dvh, 360px); }
   .dialog-branches { max-height: none; overflow: visible; padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); }
 }
-@media (prefers-reduced-motion: reduce) { .stockist-card { transition: none; } .stockist-card:hover { transform: none; } }
 </style>
